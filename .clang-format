@@ -1,0 +1,5 @@
+---
+Language:        Cpp
+BasedOnStyle:  LLVM
+BreakBeforeBraces: Allman
+SpacesInParentheses: true
