@@ -18,6 +18,8 @@ struct GameData
     return m_max_red <= 12 && m_max_green <= 13 && m_max_blue <= 14;
   }
 
+  std::int64_t power() const { return m_max_red * m_max_green * m_max_blue; }
+
   auto id() const { return m_id; }
 
 private:
@@ -62,11 +64,6 @@ private:
     m_id = parse_game_id( fs );
     while ( parse_round( fs ) )
       ;
-    std::cout << m_id << " -> "
-              << "r(" << m_max_red << ") "
-              << "g(" << m_max_green << ") "
-              << "b(" << m_max_blue << ") "
-              << "\n";
   }
 
   std::int64_t m_id;
@@ -81,17 +78,14 @@ int s_cube_conundrum( const std::string & input_file )
   if ( !fs.is_open() )
     aoc_exit_error( "could not open input file" );
 
-  std::int64_t sum_of_ids = 0;
+  std::int64_t sum_of_powers = 0;
   while ( !fs.eof() )
   {
     GameData gd( fs );
-    if ( gd.possibly_valid() )
-    {
-      sum_of_ids += gd.id();
-    }
+    sum_of_powers += gd.power();
   }
   fs.close();
-  std::cout << sum_of_ids << std::endl;
+  std::cout << sum_of_powers << std::endl;
 
   return EXIT_SUCCESS;
 }
