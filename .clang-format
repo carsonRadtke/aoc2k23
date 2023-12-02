@@ -3,3 +3,5 @@ Language:        Cpp
 BasedOnStyle:  LLVM
 BreakBeforeBraces: Allman
 SpacesInParentheses: true
+PointerAlignment: Middle
+SeparateDefinitionBlocks: Always
