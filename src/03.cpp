@@ -5,8 +5,8 @@
 
 #include "aoc.hpp"
 
-static std::string s_get_number( const std::vector<std::string> & s, std::int64_t i,
-                                 std::int64_t j )
+static std::string s_get_number( const std::vector<std::string> & s,
+                                 std::int64_t i, std::int64_t j )
 {
   const char * ptr = s[i].c_str() + j;
   const char * end = ptr;
@@ -15,10 +15,11 @@ static std::string s_get_number( const std::vector<std::string> & s, std::int64_
   return std::string( ptr, end - ptr );
 }
 
-static std::int64_t s_start_of_number( const std::vector<std::string> & s, std::int64_t i, std::int64_t j )
+static std::int64_t s_start_of_number( const std::vector<std::string> & s,
+                                       std::int64_t i, std::int64_t j )
 {
   std::int64_t rv = j;
-  while ( rv > 0 && std::isdigit( s[i][rv-1] ) )
+  while ( rv > 0 && std::isdigit( s[i][rv - 1] ) )
   {
     rv--;
   }
@@ -26,8 +27,10 @@ static std::int64_t s_start_of_number( const std::vector<std::string> & s, std::
 }
 
 static std::int64_t s_i = 0;
+
 static std::pair<std::int64_t, std::int64_t>
-s_find_gear_ratio( const std::vector<std::string> & s, std::int64_t i, std::int64_t j )
+s_find_gear_ratio( const std::vector<std::string> & s, std::int64_t i,
+                   std::int64_t j )
 {
   std::int64_t count = 0;
   std::int64_t a, b;
@@ -35,21 +38,31 @@ s_find_gear_ratio( const std::vector<std::string> & s, std::int64_t i, std::int6
   {
     std::int64_t start = s_start_of_number( s, i, j - 1 );
     auto num = s_get_number( s, i, start );
-    switch (count++)
+    switch ( count++ )
     {
-      case 0: a = std::atoi(num.c_str()); break;
-      case 1: b = std::atoi(num.c_str()); break;
-      default: return { 0, 0 };
+    case 0:
+      a = std::atoi( num.c_str() );
+      break;
+    case 1:
+      b = std::atoi( num.c_str() );
+      break;
+    default:
+      return { 0, 0 };
     }
   }
   if ( j + 1 < s[i].size() && std::isdigit( s[i][j + 1] ) )
   {
     auto num = s_get_number( s, i, j + 1 );
-    switch (count++)
+    switch ( count++ )
     {
-      case 0: a = std::atoi(num.c_str()); break;
-      case 1: b = std::atoi(num.c_str()); break;
-      default: return { 0, 0 };
+    case 0:
+      a = std::atoi( num.c_str() );
+      break;
+    case 1:
+      b = std::atoi( num.c_str() );
+      break;
+    default:
+      return { 0, 0 };
     }
   }
   for ( std::int64_t x = -1; x <= 1; x++ )
@@ -59,13 +72,19 @@ s_find_gear_ratio( const std::vector<std::string> & s, std::int64_t i, std::int6
     {
       std::int64_t start = s_start_of_number( s, i - 1, j + x );
       auto num = s_get_number( s, i - 1, start );
-      switch (count++)
+      switch ( count++ )
       {
-        case 0: a = std::atoi(num.c_str()); break;
-        case 1: b = std::atoi(num.c_str()); break;
-        default: return { 0, 0 };
+      case 0:
+        a = std::atoi( num.c_str() );
+        break;
+      case 1:
+        b = std::atoi( num.c_str() );
+        break;
+      default:
+        return { 0, 0 };
       }
-      while (j+x < s[i-1].size() && std::isdigit(s[i-1][j+x])) x++;
+      while ( j + x < s[i - 1].size() && std::isdigit( s[i - 1][j + x] ) )
+        x++;
     }
   }
   for ( std::int64_t x = -1; x <= 1; x++ )
@@ -75,13 +94,19 @@ s_find_gear_ratio( const std::vector<std::string> & s, std::int64_t i, std::int6
     {
       std::int64_t start = s_start_of_number( s, i + 1, j + x );
       auto num = s_get_number( s, i + 1, start );
-      switch (count++)
+      switch ( count++ )
       {
-        case 0: a = std::atoi(num.c_str()); break;
-        case 1: b = std::atoi(num.c_str()); break;
-        default: return { 0, 0 };
+      case 0:
+        a = std::atoi( num.c_str() );
+        break;
+      case 1:
+        b = std::atoi( num.c_str() );
+        break;
+      default:
+        return { 0, 0 };
       }
-      while (j+x < s[i+1].size() && std::isdigit(s[i+1][j+x])) x++;
+      while ( j + x < s[i + 1].size() && std::isdigit( s[i + 1][j + x] ) )
+        x++;
     }
   }
   if ( count == 2 )
