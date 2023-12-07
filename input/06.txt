@@ -1,2 +1,2 @@
-Time:      71530
-Distance:  940200
+Time:        44806572
+Distance:   208158110501102
